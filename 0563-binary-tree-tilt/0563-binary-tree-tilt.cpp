@@ -11,25 +11,17 @@
  */
 class Solution {
 public:
-     int calculateTilt(TreeNode* node, int& totalTilt) {
-        if (node == nullptr) {
-            return 0;
-        }
-
-        // Calculate the sum of values in the left and right subtrees
-        int leftSum = calculateTilt(node->left, totalTilt);
-        int rightSum = calculateTilt(node->right, totalTilt);
-
-        // Calculate the tilt of the current node
-        int tilt = std::abs(leftSum - rightSum);
-        totalTilt += tilt;
-
-        // Return the sum of values in the subtree rooted at the current node
-        return leftSum + rightSum + node->val;
-    }
+     int solve(TreeNode* node, int& totalTilt) {
+        if(node==NULL)return 0;
+        int lsum=solve(node->left, totalTilt);
+         int rsum=solve(node->right, totalTilt);
+         int tilt=abs(lsum-rsum);
+         totalTilt+=tilt;
+         return lsum+rsum+node->val;
+     }
     int findTilt(TreeNode* root) {
         int totalTilt = 0;
-        calculateTilt(root, totalTilt);
+        solve(root, totalTilt);
         return totalTilt;
     }
 
